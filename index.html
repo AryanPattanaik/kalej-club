@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monotree - Employee App</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #fff;
+            color: #111;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #eee;
+            padding: 0 5%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: #00c16e;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .demo-button {
+            background: #00c16e;
+            color: white;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .demo-button:hover {
+            background: #00a85d;
+        }
+
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-button {
+            background: transparent;
+            border: 1px solid #ccc;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            color: #444;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-button:hover {
+            border-color: #00c16e;
+            color: #00c16e;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 100px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .rating {
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .rating .stars {
+            color: #000;
+            font-size: 20px;
+        }
+
+        .rating .score {
+            font-weight: 600;
+        }
+
+        .rating .label {
+            color: #555;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .stat p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .trusted {
+            max-width: 1000px;
+            margin: 60px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .trusted-text {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .trusted-logos img {
+            height: 40px;
+            filter: grayscale(100%);
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .trusted-logos img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .feature {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: #00c16e;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        .feature-text h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .feature-text p {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .feature-points {
+            margin-top: 20px;
+        }
+
+        .feature-point {
+            margin-bottom: 16px;
+        }
+
+        .feature-point h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-point p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .feature-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .feature-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .highlights {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .highlights-header {
+            margin-bottom: 20px;
+        }
+
+        .highlights-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .highlights-header a {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #00c16e;
+            text-decoration: none;
+        }
+
+        .highlights-image {
+            text-align: center;
+        }
+
+        .highlights-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Integrations Section */
+        .integrations {
+            background-color: #060810;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .integrations-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .integrations h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .integrations p {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+
+        .integrations-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #fff;
+        }
+
+        .cta-content h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        .cta-content p {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background: #4ade80;
+            color: #000;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background: #22c55e;
+        }
+
+footer {
+    border-top: 1px solid #eee;
+    padding: 50px 5%;
+    background: #fff;
+    font-size: 14px;
+    color: #444;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-logo img {
+    height: 28px;
+    margin-bottom: 16px;
+}
+
+.footer-badge {
+    height: 40px;
+    margin: 12px 0;
+}
+
+.footer-cert {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: #888;
+}
+
+.footer-columns {
+    display: flex;
+    flex: 2;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    min-width: 300px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 140px;
+}
+
+.footer-column h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 6px;
+}
+
+.footer-column a {
+    text-decoration: none;
+    color: #111;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+    color: #00c16e;
+}
+
+.footer-column p {
+    margin: 0;
+    color: #111;
+    font-size: 14px;
+}
+
+        @media (max-width: 768px) {
+            .hero-content,
+            .feature {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text,
+            .feature-text {
+                flex: unset;
+            }
+
+            .hero-image,
+            .feature-image {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div>
+                <strong class="brand-name">Monotree</strong>
+            </div>
+            <nav class="nav">
+                <a href="#">Product</a>
+                <a href="#">Why Us?</a>
+                <a href="#">Cases</a>
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+            </nav>
+            <div class="buttons">
+                <button class="demo-button">Book a demo</button>
+                <div class="dropdown">
+                    <button class="dropdown-button">English ▾</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Put people first.</h1>
+                    <p>
+                        Fast, user-friendly and engaging — transform HR into people and culture, and streamline your daily operations with your own branded app.
+                    </p>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="score">4.9</span>
+                        <span class="label">Average user rating</span>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <h2>75.2%</h2>
+                            <p>Average daily activity</p>
+                        </div>
+                        <div class="stat">
+                            <h2>4.2</h2>
+                            <p>Average daily app opens</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/image.png" alt="App preview">
+                </div>
+            </div>
+        </section>
+
+        <section class="trusted">
+            <p class="trusted-text">Trusted by teams at:</p>
+            <div class="trusted-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify">
+            </div>
+        </section>
+
+        <section class="feature">
+            <div class="feature-text">
+                <span class="feature-badge">New feature</span>
+                <h2>Our AI Chat Bot is here ✨</h2>
+                <p>You now have your own AI Chat Bot that answers employee questions in a fun, intuitive way – saving valuable time for HR and operations.</p>
+                <div class="feature-points">
+                    <div class="feature-point">
+                        <h3>✅ Instant value</h3>
+                        <p>No extra setup or training needed. It works immediately with the content you’ve already uploaded.</p>
+                    </div>
+                    <div class="feature-point">
+                        <h3>🔒 Smart and secure</h3>
+                        <p>Delivers tailored responses based on each user’s departments and groups – with strict content access controls.</p>
+                    </div>
+                    <div class="feature-point">
+                        <h3>📚 Deep content understanding</h3>
+                        <p>Reads all handbook and course content including PDFs, Word documents, Excel files – and even understands uploaded videos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-image">
+                <img src="images/chatbot.png" alt="AI Chat Bot preview">
+            </div>
+        </section>
+
+        <section class="highlights">
+            <div class="highlights-header">
+                <h2>Product highlights</h2>
+                <a href="#">See all features →</a>
+            </div>
+            <div class="highlights-image">
+                <img src="images/lol.png" alt="Product highlights">
+            </div>
+        </section>
+
+        <section class="highlights">
+            <div class="highlights-header">
+                <h2>What do our customers say?</h2>
+                <a href="#">Read all our cases →</a>
+            </div>
+            <div class="highlights-image">
+                <img src="images/review.png" alt="Customer cases">
+            </div>
+        </section>
+
+        <!-- New Integrations Section -->
+        <section class="integrations">
+            <div class="integrations-content">
+                <h2>Fully automatic integrations</h2>
+                <p>
+                    Our system seamlessly integrates with major scheduling platforms, 
+                    allowing you to import your entire organization with one click.
+                </p>
+                <div class="integrations-image">
+                    <img src="images/blue.png" alt="Integrations preview">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="cta-content">
+                <h2>Get your app in a few days.<br>Let's get in touch!</h2>
+                <p>
+                    We love demonstrating our platform. Please don't hesitate 
+                    to contact us if you're interested.
+                </p>
+                <button class="cta-button">Book a demo</button>
+            </div>
+        </section>
+    </main>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="Monotree Logo">
+            </div>
+            <img src="images/gdpr.png" alt="GDPR Certification" class="footer-badge">
+            <p class="footer-cert">ISAE 3000 certified by BDO Denmark</p>
+            <p class="footer-copy">2025 © Monotree ApS.</p>
+        </div>
+
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">Targeting</a>
+                <a href="#">Integrations</a>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="#">Why us?</a>
+                <a href="#">About us</a>
+            </div>
+            <div class="footer-column">
+                <h4>Stories</h4>
+                <a href="#">Cases</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p><a href="mailto:contact@monotree.com">contact@monotree.com</a></p>
+                <p>+45 3111 0003</p>
+                <p>VAT ID 40567720</p>
+                <a href="#"><strong>in</strong></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
