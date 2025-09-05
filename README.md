@@ -1,2 +1,2 @@
-# kalej-clubs
-working on kalej clubs owo
+# Project made for GithubCommunity SRMIST
+i learnt a lot of stuff because of this. wow.
